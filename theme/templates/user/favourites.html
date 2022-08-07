@@ -1,0 +1,15 @@
+{%extends 'base.html' %}
+{%block content %}
+<div class="flex flex-row mr-4 p-4">
+    {%for post in new%}
+    <div class="text-white font-bold mt-5 mr-4 p-5 bg-indigo-500 rounded-lg">
+        <h1>{{post.title}}</h1>
+        <p>{{post.description}}</p>
+        <h1>By {{post.user.name}}</h1>
+            <a href="{% url 'favourite_add' post.slug%}">Remove</a>
+    </div>
+
+    {%endfor%}
+</div>
+
+    {%endblock content %}

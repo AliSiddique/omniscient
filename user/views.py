@@ -1,7 +1,12 @@
+from multiprocessing import context
+import profile
 from django.shortcuts import render,reverse
 from django.contrib.auth.views import LoginView
 from .forms import CreateUserForm
 from django.views.generic import CreateView
+from django.contrib.auth.views import PasswordChangeView
+from .models import Profile, User
+from django.contrib.auth.forms import PasswordChangeForm
 # Create your views here.
 class UserSignupView(CreateView):
     template_name = "user/signup.html"
@@ -14,3 +19,29 @@ class UserSignupView(CreateView):
 class LoginView(LoginView):
     template_name = "user/login.html"
             
+
+
+
+
+def profiles(request):
+    profiles = Profile.objects.filter(is_writer=True)
+    context={
+        "profiles":profiles
+    }
+    return render(request,"user/profiles.html",context)
+
+def single_profile(request,slug):
+    profile = Profile.objects.get(slug=slug)    
+    content = profile.article_set.all()
+   
+    context={
+        "profile":profile,
+        "posts":content
+
+    }     
+    return render(request,"user/single-profile.html",context)
+    
+
+class PasswordChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    template_name = "user/passwordchange.html"

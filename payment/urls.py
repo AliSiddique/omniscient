@@ -1,7 +1,10 @@
 from django.urls import path
-
-from payment.views import payment
+from .views import CreateCheckout, Subscribe,PaymentView
 
 urlpatterns = [
-    path('',payment,name="payment")
+    path('',Subscribe.as_view(),name="payment"),
+    path('subscribe/<slug>/',PaymentView.as_view(),name="subscribe-plan"),
+    path('create-subscription/',CreateCheckout.as_view(),name="create-subscription"),
+
+
 ]

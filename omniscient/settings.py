@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -23,10 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-no^sv#%3%3kxb4i%7xy=2-o5_@cigtap2(acpt81klk^8g0i)4"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, True)
+)
+STRIPE_PUBLIC_KEY =env('STRIPE_PUBLIC_KEY')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
+DEBUG =True
 
 # Application definition
 
@@ -46,7 +52,8 @@ INSTALLED_APPS = [
     "theme",
     "django_browser_reload",
     "crispy_forms",
-    "crispy_tailwind"
+    "crispy_tailwind",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
@@ -137,3 +144,6 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
 CRISPY_TEMPLATE_PACK = "tailwind"
 LOGIN_URL = ""
+MEDIA_URL = '/media/'
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+

@@ -1,11 +1,17 @@
 
 {% extends "base.html" %}
+{% load tailwind_filters %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 
 <h1>{{post.title}}</h1> 
 <h1>{{post.description}}</h1> 
-
+{% if fav%}
+<a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-indigo-500 rounded-lg text-white font-vold">Unsave</a>
+{% else %}
+<a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-indigo-500 rounded-lg text-white font-vold">Save</a>
+{%endif%}
 
 
   <h1 class="mt-4 text-3xl font-bold">Similar posts</h1>
@@ -14,6 +20,13 @@
   <p>{{post.description}}</p>
   {% endfor %}
 
+  <div class="max-w-lg mx-auto mt-10"> 
+  <form method="POST" action="">
+       {% csrf_token %}
+       {{form|crispy}}
+      <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-indigo-500 p-3 " type="submit">Comment</button>
+      </form>
+  </div>
   
 {% endblock content %}
 

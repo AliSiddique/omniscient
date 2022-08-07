@@ -1,0 +1,12 @@
+{%extends 'base.html' %}
+{%block content %}
+    <form method="GET" action="{% url 'search' %}">
+        <input name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
+        <button class="font-bold" type="submit">Search</button>
+      </form>
+      <h1>Your search for {{values.search}} had {{articles|length}} results</h1>
+    {% for post in articles %}
+    <h1>{{post.title}}</h1>
+    <p>{{post.description}}</p>
+    {% endfor %}
+    {%endblock content %}

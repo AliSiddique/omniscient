@@ -1,3 +1,4 @@
+from email import message
 from django.db import models
 
 from user.models import Profile
@@ -36,3 +37,12 @@ class Comment(models.Model):
     post = models.ForeignKey(Article,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
     date = models.DateTimeField(auto_now_add=True,blank=True,null=True)
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE,blank=True,null=True)
+
+
+
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    message = models.TextField(max_length=300)
