@@ -5,28 +5,64 @@
 {% block content %}
 
 
-<h1>{{post.title}}</h1> 
-<h1>{{post.description}}</h1> 
-{% if fav%}
-<a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-indigo-500 rounded-lg text-white font-vold">Unsave</a>
-{% else %}
-<a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-indigo-500 rounded-lg text-white font-vold">Save</a>
-{%endif%}
+ <div>
+<div class="mx-40 mt-5">
+  <h1 class="font-semibold text-lg">{{post.category}}</h1> 
+<h1 class="font-semibold text-lg mb-6">{{post.title}}</h1>
+  <img class="object-cover 	rounded-md" src="{{post.image.url}}" />
+  <div class="flex justify-between mt-6">
+    <div>
+      <p class="font-bold text-lg"><a href="{% url 'single-profile' post.writer.slug%}">By : {{post.writer}}</a></p>
+      <small>Posted {{post.created_date|timesince}} ago</small>
+    </div>
+    <div>
+      {% if fav%}
+      <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-indigo-500 rounded-lg text-white font-vold">Unsave</a>
+      {% else %}
+      <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-indigo-500 rounded-lg text-white font-vold">Save</a>
+      {%endif%}
+    </div>
+  </div>
+  <p class="m-5 leading-10	text-lg font-medium">{{post.description}}</p>
 
 
-  <h1 class="mt-4 text-3xl font-bold">Similar posts</h1>
-  {% for post in posts %}
-  <h1>{{post.title}}</h1>
-  <p>{{post.description}}</p>
-  {% endfor %}
 
-  <div class="max-w-lg mx-auto mt-10"> 
+
+
+<div class="  "> 
   <form method="POST" action="">
        {% csrf_token %}
        {{form|crispy}}
       <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-indigo-500 p-3 " type="submit">Comment</button>
       </form>
   </div>
+
+
+  <div class="grid grid-cols-3 gap-4 mx-6 mt-5 content-center">
+    {% for post in posts %}
+    <a href="{% url 'article-detail' post.slug%}">
+    <div class="text-black font-semibold flex justify-between rounded-lg p-5">
+      <div>
+        <img class="rounded-full h-20	" src="{{post.image.url}}" />
+      </div>
+      <div>
+        <h1>{{post.title}}</h1>
+        <p>{{post.description|truncatechars:60}}</p>
+        <small>{{post.profile}}</small>
+      </div>
+  
+    </div>
+  
+    </a>
+    {% endfor %}
+  </div>
+  
+</div>
+
+
+
+
+  
   
 {% endblock content %}
 

@@ -13,8 +13,7 @@ def ArticleList(request):
     economy = Article.objects.filter(category='Ec').filter(published=True)
     finance = Article.objects.filter(category='FI').filter(published=True)
     politics = Article.objects.filter(category='Po').filter(published=True)
-    now = timezone.now()
-    print(now)
+ 
 
 
     context={

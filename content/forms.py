@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 from .models import Comment, Contact
 
 
@@ -8,7 +9,10 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['description']
-        labels={"description":"What are your thoughts?"}
+        labels={"description":"Comment"}
+        widgets = {
+            'description': forms.TextInput(attrs={'placeholder': 'What did you think of the article?'}),
+        }
 
 
 

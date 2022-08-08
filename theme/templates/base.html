@@ -4,15 +4,31 @@
 	<head>
     <title>Django Tailwind</title>
 	<script src="https://js.stripe.com/v3/"></script>
+	<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		{% tailwind_css %}
 	</head>
+	<body>
+		<div class=" bg-black text-white font-semibold">
+			<div class="flex justify-between mx-11 p-3">
+				<div>
+					<h1>Contact</h1>
+				</div>
+				<div>
+					<a href="{% url 'signup' %}">Subscribe</a>
 
-	<body >
+					<a href="{% url 'signup' %}">Signup</a>
+				</div>
+	
+			</div>
+		
+		</div>
+		<h1 class="text-center text-5xl my-5 font-extrabold tracking-widest	">Omniscient</h1>
 		{% include 'navbar.html' %}
+	
 				{% block content %}
 				{% endblock content %}
 
