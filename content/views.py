@@ -1,18 +1,17 @@
-from unicodedata import category
 from django.http import HttpResponseRedirect
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,reverse
 from django.views.generic import DetailView,CreateView
 from django.utils import timezone
 from content.forms import CommentForm, ContactForm
 from django.views.generic.edit import FormMixin
-
+from django.contrib import messages
 
 from content.models import Article
 # Create your views here.
 def ArticleList(request):  
-    economy = Article.objects.filter(category='Ec').filter(published=True)
-    finance = Article.objects.filter(category='FI').filter(published=True)
-    politics = Article.objects.filter(category='Po').filter(published=True)
+    economy = Article.objects.filter(category='Ec').filter(published=True)[:7]
+    finance = Article.objects.filter(category='FI').filter(published=True)[:7]
+    politics = Article.objects.filter(category='Po').filter(published=True)[:5]
  
 
 
@@ -26,6 +25,7 @@ def ArticleList(request):
 class ArticleDetail(FormMixin,DetailView):
     template_name = 'content/detail.html'
     queryset = Article.objects.all()
+
     form_class = CommentForm
     context_object_name = "post"
     def get_context_data(self, **kwargs):
@@ -33,13 +33,12 @@ class ArticleDetail(FormMixin,DetailView):
         context = super(ArticleDetail,self).get_context_data(**kwargs)
         course = get_object_or_404(Article,slug=self.kwargs['slug'])
         posts = Article.objects.filter(category=course.category).exclude(slug=course.slug)[:3]
-
         if self.request.user.is_authenticated:
             if course.favourites.filter(id=self.request.user.profile.id).exists():
                 fav = True
         course.views +=1
         course.save()
-
+    
         subscription = self.request.user.subscription
         pricing_tier  = subscription.pricing
     
@@ -60,8 +59,19 @@ class ArticleDetail(FormMixin,DetailView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        form.save()
-        return super(ArticleDetail, self).form_valid(form)
+        course = get_object_or_404(Article,slug=self.kwargs['slug'])
+        instance = form.save(commit=False)
+        instance.profile = self.request.user.profile
+        instance.post = course
+        instance.save()
+        self.article = instance
+        messages.success(self.request,"coment submitted")
+        return super(ArticleDetail,self).form_valid(form)        
+ 
+ 
+
+    def get_success_url(self):
+        return reverse("article-detail", kwargs={"slug":self.kwargs["slug"]})
 
 def articlePages(request,slug):
     posts = Article.objects.filter(category=slug)

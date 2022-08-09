@@ -30,14 +30,17 @@
 
 
 <div class="  "> 
-  <form method="POST" action="">
+  <form method="POST" action="" id="friend_form">
        {% csrf_token %}
        {{form|crispy}}
       <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-indigo-500 p-3 " type="submit">Comment</button>
       </form>
   </div>
 
-
+  {% for post in post.comments.all %}
+<h1>{{post.description}}</h1>
+{% endfor %}
+<h1>Similar posts</h1>
   <div class="grid grid-cols-3 gap-4 mx-6 mt-5 content-center">
     {% for post in posts %}
     <a href="{% url 'article-detail' post.slug%}">
@@ -61,8 +64,36 @@
 
 
 
+<input type="hidden" id="refreshed" value="false">
 
-  
+  <script>
+//     $(function() {
+//     $("#friend_form").submit(function(event) {
+//         // Stop form from submitting normally
+//         event.preventDefault();
+//         var friendForm = $(this);
+//         // Send the data using post
+//         var posting = $.post( friendForm.attr('action'), friendForm.serialize() );
+//         // if success:
+//         posting.done(function(data) {
+//             // success actions, maybe change submit button to 'friend added' or whatever
+//         });
+//         // if failure:
+//         posting.fail(function(data) {
+//             // 4xx or 5xx response, alert user about failure
+//         });
+//     });
+// });
+    $(window).load(function(){
+        if ($('#refreshed').val() == "false") {
+          $('#refreshed').val("true"); 
+        }
+        else {
+          $('#refreshed').val("false");
+          location.reload();
+        }
+      });
+    </script>
   
 {% endblock content %}
 

@@ -1,5 +1,4 @@
-
-<nav class="bg-white border-b border-b-2 border-black" x-data="{ open: false }">
+<nav class="bg-white  border-b-2 border-black" x-data="{ open: false }">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-black" >
     <div class="flex justify-center h-16">
     <div class="flex justify-center">
@@ -47,31 +46,42 @@
         x-transition:leave-start="transform opacity-100 scale-100"
         x-transition:leave-end="transform opacity-0 scale-95"
         @click.away="open = false" 
-        class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-        <a href="{% url 'article-list' %}"  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+        class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu ml-21">
+        <a   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
         My Profile
         </a>
-        <a href="{% url 'article-list' %}"  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+        <a   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
         My Products
         </a>
-        <a href="{% url 'article-list' %}"  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+        <a   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
         Signup
         </a>
-        <a href="{% url 'article-list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+        <a  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
         Sign out
         </a>
       </div>
       </div>
       {% else %}
-      <div class="flex justify-end">
+      <!-- <div class="flex justify-end">
+        <form method="GET" action="{% url 'search' %}">
+          <input class="rounded-lg" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
+          <button class="font-bold" type="submit">Search</button>
+        </form>
+      </div> -->
+      <a  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+        Login
+        </a>
+   
+      {% endif %}
+      <div class="ml-80 flex justify-end">
         <form method="GET" action="{% url 'search' %}">
           <input class="rounded-lg" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
           <button class="font-bold" type="submit">Search</button>
         </form>
       </div>
-   
-      {% endif %}
+    
     </div>
+    
     <div class="-mr-2 flex items-center sm:hidden">
       <button @click="open = !open" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
       <span class="sr-only">Open main menu</span>

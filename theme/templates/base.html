@@ -2,23 +2,24 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-    <title>Django Tailwind</title>
+    <title>Home</title>
 	<script src="https://js.stripe.com/v3/"></script>
 	<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		{% tailwind_css %}
 	</head>
-	<body>
+	<body class="p-0 m-0 h-full">
 		<div class=" bg-black text-white font-semibold">
+
 			<div class="flex justify-between mx-11 p-3">
 				<div>
-					<h1>Contact</h1>
+					<a href="{% url 'contact' %}">Contact
 				</div>
 				<div>
-					<a href="{% url 'signup' %}">Subscribe</a>
+					<a href="{% url 'payment' %}">Subscribe | </a>
 
 					<a href="{% url 'signup' %}">Signup</a>
 				</div>
@@ -31,6 +32,8 @@
 	
 				{% block content %}
 				{% endblock content %}
+				
+				{% include 'footer.html' %}
 
 	</body>
 </html>
