@@ -15,6 +15,7 @@
       <p class="font-bold text-lg"><a href="{% url 'single-profile' post.writer.slug%}">By : {{post.writer}}</a></p>
       <small>Posted {{post.created_date|timesince}} ago</small>
     </div>
+    
     <div>
       {% if fav%}
       <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-indigo-500 rounded-lg text-white font-vold">Unsave</a>
@@ -40,15 +41,15 @@
   {% for post in post.comments.all %}
 <h1>{{post.description}}</h1>
 {% endfor %}
-<h1>Similar posts</h1>
-  <div class="grid grid-cols-3 gap-4 mx-6 mt-5 content-center">
+<h1 class="text-center text-3xl">Similar posts</h1>
+  <div class="grid grid-cols-3 gap-7 mx-6 mt-5 content-center">
     {% for post in posts %}
     <a href="{% url 'article-detail' post.slug%}">
     <div class="text-black font-semibold flex justify-between rounded-lg p-5">
       <div>
         <img class="rounded-full h-20	" src="{{post.image.url}}" />
       </div>
-      <div>
+      <div class="pl-3">
         <h1>{{post.title}}</h1>
         <p>{{post.description|truncatechars:60}}</p>
         <small>{{post.profile}}</small>

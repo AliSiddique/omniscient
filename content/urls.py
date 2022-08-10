@@ -7,7 +7,7 @@ urlpatterns = [
     path('category/<slug>/',articlePages,name="single-category"),
     path('contact/',contactView.as_view(),name="contact"),
     path('fav/<slug:slug>/',favourite_add,name="favourite_add"),
-    path('profile/favourites/',favourite_list,name="favourite_list"),
+    path('profile/favourites/',favourite_list,name="favourites"),
     path('search/',search,name="search"),
 
 

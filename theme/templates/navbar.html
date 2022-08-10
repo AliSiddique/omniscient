@@ -46,18 +46,16 @@
         x-transition:leave-start="transform opacity-100 scale-100"
         x-transition:leave-end="transform opacity-0 scale-95"
         @click.away="open = false" 
-        class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu ml-21">
-        <a   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+        class="z-50	 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu ml-21">
+        <a href="{% url 'single-profile' request.user.profile.slug%}"   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
         My Profile
         </a>
-        <a   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-        My Products
-        </a>
-        <a   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-        Signup
+       
+        <a  href="{% url 'favourites' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+        Favourites
         </a>
         <a  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-        Sign out
+        Log out
         </a>
       </div>
       </div>
@@ -73,13 +71,7 @@
         </a>
    
       {% endif %}
-      <div class="ml-80 flex justify-end">
-        <form method="GET" action="{% url 'search' %}">
-          <input class="rounded-lg" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
-          <button class="font-bold" type="submit">Search</button>
-        </form>
-      </div>
-    
+      
     </div>
     
     <div class="-mr-2 flex items-center sm:hidden">

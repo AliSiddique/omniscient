@@ -62,3 +62,14 @@ def user_profile_create(instance,created,sender,**kwargs):
             subscription.user.stripe_customer_id = stripe_customer["id"]
             subscription.user.save()
 post_save.connect(user_profile_create,sender=User)
+
+
+def updateUser(sender,instance,created,**kwargs):
+    profile = instance
+    user = profile.user
+    if created == False:
+        user.name  = profile.name
+        user.email = profile.email
+        user.save()
+
+post_save.connect(updateUser,sender=Profile)    

@@ -1,11 +1,13 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,reverse
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.conf import settings
 from payment.models import Pricing
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 import stripe
+from user.models import User
 # Create your views here.
 stripe.api_key="sk_test_51LC3cmLF9bIFNtJzGGYAMuG72tTrBtWXQLNnBkhOIlRj5UT2s06e3gbKmGUdmopR3kiu8INiAagArvYavyOk5NMV00QOXvvP5d"
 class Subscribe(TemplateView):
@@ -59,3 +61,59 @@ class CreateCheckout(APIView):
             return Response({
                 "error": {'message': str(e)}
             })
+
+
+@csrf_exempt
+def webhook(request):
+    webhook_secret = 'whsec_rg16Sy5zsvha5TanUdXao0Y0gHuhEmuw'
+    payload = request.body
+
+    # Retrieve the event by verifying the signature using the raw body and secret if webhook signing is configured.
+    signature = request.META["HTTP_STRIPE_SIGNATURE"]
+    try:
+        event = stripe.Webhook.construct_event(
+            payload=payload, sig_header=signature, secret=webhook_secret)
+        data = event['data']
+    except Exception as e:
+        return e
+        
+    # Get the type of webhook event sent - used to check the status of PaymentIntents.
+    event_type = event['type']
+    data_object = data['object']
+
+    if event_type == 'invoice.paid':
+
+        webhook_object = data["object"]
+        stripe_customer_id = webhook_object["customer"]
+
+        stripe_sub = stripe.Subscription.retrieve(webhook_object["subscription"])
+        stripe_price_id = stripe_sub["plan"]["id"]
+
+        pricing = Pricing.objects.get(stripe_price_id=stripe_price_id)
+
+        user = User.objects.get(stripe_customer_id=stripe_customer_id)
+        user.subscription.status = stripe_sub["status"]
+        user.subscription.stripe_subscription_id = webhook_object["subscription"]
+        user.subscription.pricing = pricing
+        user.subscription.save()
+
+    if event_type == 'invoice.finalized':
+        # If you want to manually send out invoices to your customers
+        # or store them locally to reference to avoid hitting Stripe rate limits.
+        print(data)
+
+    if event_type == 'customer.subscription.deleted':
+        # handle subscription cancelled automatically based
+        # upon your subscription settings. Or if the user cancels it.
+       print(data)
+
+    if event_type == 'customer.subscription.trial_will_end':
+        # Send notification to your user that the trial will end
+        print(data)
+
+    if event_type == 'customer.subscription.updated':
+        print(data)
+
+    return HttpResponse()
+
+

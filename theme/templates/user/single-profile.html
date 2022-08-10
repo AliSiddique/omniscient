@@ -6,7 +6,6 @@
 
 <!-- Modal toggle -->
   
-  <h1 class="text-center text-5xl  font-extrabold mt-4 font-press-start">{{profile.name}}</h1>
   <section class="hero text-center flex justify-center container max-w-screen-lg mx-auto pb-10">
     <img class="rounded-full h-60	 flex justify-center	text-center" src="{{profile.image.url}}" />
   </section>
@@ -14,24 +13,15 @@
   <h1 class="text-center text-5xl  font-extrabold mt-4 font-press-start">{{profile.name}}</h1>
 
   <h1 class="text-center text-5xl  font-extrabold mt-4 font-press-start">{{profile.bio}}</h1>
-  <a href="{{profile.website}}">website</a>
-  <p>{{profile.email}}</p>
-  <p>{{profile.phone}}</p>
+ <div class="text-center text-md flex justify-center font-extrabold mt-4 font-press-start">
+<h1>{{profile.twitter}} ff</h1>
+<h1>{{profile.website}} jouunonoin</h1>
+<h1>{{post.website}} jouunonoin</h1>
 
+ </div>
   <a href="https://twitter.com/{{profile.twitter}}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @TwitterDev</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <div>
 
-    <div class="">
-      <div>
-        <!-- <img class="rounded-full h-20	" src="{{profile.image.url}}" /> -->
-      </div>
-      <div>
-        <h1>{{profile.name}}</h1>
-        <p>{{profile.bio}}</p>
-        <small>{{profile.uni}}</small>
-      </div>
-  
-    </div>
   </div>
   <div class="grid grid-cols-1 gap-4 mx-96 mt-5">
     <h1>Latest posts</h1>

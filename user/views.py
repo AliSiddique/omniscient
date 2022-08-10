@@ -1,8 +1,8 @@
 from multiprocessing import context
 import profile
-from django.shortcuts import render,reverse
+from django.shortcuts import render,reverse,redirect
 from django.contrib.auth.views import LoginView
-from .forms import CreateUserForm
+from .forms import CreateUserForm,ProfileForm, WriterForm
 from django.views.generic import CreateView
 from django.contrib.auth.views import PasswordChangeView
 from .models import Profile, User
@@ -45,3 +45,29 @@ def single_profile(request,slug):
 class PasswordChangeView(PasswordChangeView):
     form_class = PasswordChangeForm
     template_name = "user/passwordchange.html"
+
+
+
+def editAccount(request):
+    profile = request.user.profile
+    if request.user.profile.is_writer:
+        form = WriterForm(instance=profile)
+        if request.method == 'POST':
+            form = WriterForm(request.POST,request.FILE,instance=profile)
+            if form.is_valid():
+                form.save()
+            return redirect('profile')   
+
+
+    else:
+        form = ProfileForm(instance=profile)
+        if request.method == 'POST':
+            form = ProfileForm(request.POST,request.FILE,instance=profile)
+            if form.is_valid():
+                form.save()
+            return redirect('profile')   
+              
+    context ={
+        'form':form
+    }
+    return render(request,"user/editaccount.html",context)

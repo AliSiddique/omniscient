@@ -29,7 +29,13 @@
 		</div>
 		<h1 class="text-center text-5xl my-5 font-extrabold tracking-widest	">Omniscient</h1>
 		{% include 'navbar.html' %}
-	
+		{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
 				{% block content %}
 				{% endblock content %}
 				

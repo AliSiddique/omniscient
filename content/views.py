@@ -5,13 +5,12 @@ from django.utils import timezone
 from content.forms import CommentForm, ContactForm
 from django.views.generic.edit import FormMixin
 from django.contrib import messages
-
 from content.models import Article
 # Create your views here.
 def ArticleList(request):  
     economy = Article.objects.filter(category='Ec').filter(published=True)[:7]
     finance = Article.objects.filter(category='FI').filter(published=True)[:7]
-    politics = Article.objects.filter(category='Po').filter(published=True)[:5]
+    politics = Article.objects.filter(category='Po').filter(published=True)[:4]
  
 
 
@@ -84,7 +83,12 @@ def articlePages(request,slug):
 
 class contactView(CreateView):
     template_name = "content/contact.html"
-    form_class = ContactForm    
+    form_class = ContactForm 
+
+
+    def get_success_url(self):
+        messages.success(self.request, 'Profile details updated.')
+        return reverse('contact')  
 
 def favourite_add(request,slug):
     post = get_object_or_404(Article,slug=slug)
