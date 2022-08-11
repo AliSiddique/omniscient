@@ -3,7 +3,7 @@
 {% load tailwind_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
-
+<!-- 
 <div class="grid grid-cols-4 gap-4 mx-6 mt-5">
   {% for profile in profiles %}
   <a href="{% url 'single-profile' profile.slug%}">
@@ -21,8 +21,42 @@
 
   </a>
   {% endfor %}
-</div>
+</div> -->
 
+<section class="text-center container mx-auto p-5">
+<div class="lg:grid grid-cols-4 gap-4 mx-6 mt-5 mb-5 text-center">
+{% for profile in profiles %}
+<div class="shadow-lg mb-8 rounded-2xl w-64 bg-white dark:bg-gray-800">
+  <!-- <img alt="profil" src="/images/landscape/1.jpg" class="rounded-t-lg h-28 w-full mb-4"/> -->
+  <div class="flex flex-col items-center justify-center p-4 mr-5 mt-16">
+      <a href="#" class="block relative">
+          <img alt="profil" src="{{profile.image.url}}" class="mx-auto object-cover rounded-full h-16 w-16 "/>
+      </a>
+      <p class="text-gray-800 dark:text-white text-xl font-medium mt-2">
+          {{profile.name}}
+      </p>
+      <p class="text-gray-400 text-xs flex items-center">
+          <svg width="10" height="10" fill="currentColor" class="h-4 w-4 mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+              <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
+              </path>
+          </svg>
+          Uni
+      </p>
+      <p class="text-gray-400 text-xs">
+          {{profile.uni}}
+      </p>
+      <div class="flex items-center justify-between gap-4 w-full mt-8">
+          <button type="button" class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+            <a href="{% url 'single-profile' profile.slug%}">
+              See profile
+              </a>
+          </button>
+      </div>
+  </div>
+</div>
+{% endfor %}
+</div>
+</section>
 {% endblock content %}
 
 

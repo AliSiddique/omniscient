@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h1>Settings for {{request.user.username}}</h1>
+
 <div class="flex justify-center">
     <div class="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto border-r">
       <h2 class="text-3xl font-semibold text-center text-blue-800">Logo</h2>
@@ -12,7 +13,7 @@
         <aside>
           <ul>
             <li>
-              <a class="flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-md " href="{% url 'editProfile' %}">
+              <a class="flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-md " href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -24,7 +25,7 @@
             </li>
 
             <li>
-              <a class="flex items-center px-4 py-2 mt-5 text-gray-600 rounded-md hover:bg-gray-200" href="{% url 'change-password' %}">
+              <a class="flex items-center px-4 py-2 mt-5 text-gray-600 rounded-md hover:bg-gray-200" href="{% url 'editProfile' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -87,7 +87,7 @@ class contactView(CreateView):
 
 
     def get_success_url(self):
-        messages.success(self.request, 'Profile details updated.')
+        messages.success(self.request, 'Your details have been submitted.')
         return reverse('contact')  
 
 def favourite_add(request,slug):

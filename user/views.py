@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 from .forms import CreateUserForm,ProfileForm, WriterForm
 from django.views.generic import CreateView
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth import logout
 from .models import Profile, User
 from django.contrib.auth.forms import PasswordChangeForm
 # Create your views here.
@@ -70,4 +71,11 @@ def editAccount(request):
     context ={
         'form':form
     }
-    return render(request,"user/editaccount.html",context)
+    return render(request,"user/settings.html",context)
+
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('article-list') 
