@@ -64,7 +64,7 @@ class ArticleDetail(FormMixin,DetailView):
         instance.post = course
         instance.save()
         self.article = instance
-        messages.success(self.request,"coment submitted")
+        messages.success(self.request,"comment submitted")
         return super(ArticleDetail,self).form_valid(form)        
  
  
@@ -74,9 +74,9 @@ class ArticleDetail(FormMixin,DetailView):
 
 def articlePages(request,slug):
     posts = Article.objects.filter(category=slug)
-    
     context={
-        "posts":posts
+        "posts":posts,
+
     }
     return render(request,"content/category-single.html",context)
 

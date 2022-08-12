@@ -14,7 +14,7 @@ class UserSignupView(CreateView):
     form_class = CreateUserForm
 
     def get_success_url(self):
-        return reverse('')
+        return reverse('article-list')
 
 
 class LoginView(LoginView):
@@ -54,19 +54,19 @@ def editAccount(request):
     if request.user.profile.is_writer:
         form = WriterForm(instance=profile)
         if request.method == 'POST':
-            form = WriterForm(request.POST,request.FILE,instance=profile)
+            form = WriterForm(request.POST,request.FILES,instance=profile)
             if form.is_valid():
                 form.save()
-            return redirect('profile')   
+            return redirect('editProfile')   
 
 
     else:
         form = ProfileForm(instance=profile)
         if request.method == 'POST':
-            form = ProfileForm(request.POST,request.FILE,instance=profile)
+            form = ProfileForm(request.POST,request.FILES,instance=profile)
             if form.is_valid():
                 form.save()
-            return redirect('profile')   
+            return redirect('editProfile')   
               
     context ={
         'form':form

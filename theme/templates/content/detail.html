@@ -8,51 +8,73 @@
  <div>
 <div class="mx-40 mt-5">
   <h1 class="font-semibold text-lg">{{post.category}}</h1> 
-<h1 class="font-semibold text-lg mb-6">{{post.title}}</h1>
+<h1 class="font-semibold text-lg mb-6">{{post.title|title}}</h1>
   <img class="object-cover 	rounded-md" src="{{post.image.url}}" />
   <div class="flex justify-between mt-6">
     <div>
-      <p class="font-bold text-lg"><a href="{% url 'single-profile' post.writer.slug%}">By : {{post.writer}}</a></p>
+      <p class="font-bold text-lg"><a class="flex gap-5" href="{% url 'single-profile' post.writer.slug%}">By :<img class="rounded-full h-10" src="{{post.writer.image.url}}"/> {{post.writer|title}}</a></p>
       <small>Posted {{post.created_date|timesince}} ago</small>
     </div>
     
     <div>
       {% if fav%}
-      <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-indigo-500 rounded-lg text-white font-vold">Unsave</a>
+      <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-sky-600	 rounded-lg text-white font-vold">Unsave</a>
       {% else %}
-      <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-indigo-500 rounded-lg text-white font-vold">Save</a>
+      <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-sky-600	 rounded-lg text-white font-vold">Save</a>
       {%endif%}
     </div>
   </div>
-  <p class="m-5 leading-10	text-lg font-medium">{{post.description}}</p>
+  <hr class="mt-4"/>
+  <p class="mx-5 px-20 mt-7 mb-20 leading-10	text-2xl font-medium">{{post.description|safe}}</p>
 
 
 
 
 
-<div class="  "> 
+<div class=""> 
   <form method="POST" action="" id="friend_form">
        {% csrf_token %}
        {{form|crispy}}
-      <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-indigo-500 p-3 " type="submit">Comment</button>
+      <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-sky-600	  p-3 " type="submit">Comment</button>
       </form>
   </div>
+  <small>  {{ post.comments.all|length}} comments  </small>
 
   {% for post in post.comments.all %}
-<h1>{{post.description}}</h1>
+  <div>
+    <div class="flex mb-4 mt-4">
+      {% if post.profile.is_writer %}
+      <a href="{% url 'single-profile' post.profile.slug %}">
+        <img src="{{post.profile.image.url}}" class="rounded-full h-10"/>
+      </a>
+      {% else %}
+      <img src="{{post.profile.image.url}}" class="rounded-full h-10"/>
+      {% endif %}
+      <p class="ml-4">{{post.profile|title}}</p>
+      <p class="ml-4">{{post.date|timesince}} ago</p>
+
+    </div>
+    <p class="ml-16 mb-4">{{post.description}}</p>
+
+  </div>
+<hr/>
 {% endfor %}
-<h1 class="text-center text-3xl">Similar posts</h1>
-  <div class="grid grid-cols-3 gap-7 mx-6 mt-5 content-center">
+
+
+
+
+<h1 class="text-center text-3xl mt-40">Similar posts</h1>
+  <div class="lg:grid grid-cols-3 gap-7 mx-6 mt-5 content-center">
     {% for post in posts %}
     <a href="{% url 'article-detail' post.slug%}">
     <div class="text-black font-semibold flex justify-between rounded-lg p-5">
       <div>
-        <img class="rounded-full h-20	" src="{{post.image.url}}" />
+        <img class=" h-40 w-40	" src="{{post.image.url}}" />
       </div>
-      <div class="pl-3">
+      <div class="pl-10">
         <h1>{{post.title}}</h1>
-        <p>{{post.description|truncatechars:60}}</p>
-        <small>{{post.profile}}</small>
+        <p>{{post.description|truncatechars:60|safe}}</p>
+        <small>By: {{post.writer|title}}</small>
       </div>
   
     </div>

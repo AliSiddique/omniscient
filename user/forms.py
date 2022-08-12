@@ -1,10 +1,10 @@
 from django.forms import ModelForm
 from .models import User,Profile
-
-class CreateUserForm(ModelForm):
+from django.contrib.auth.forms import UserCreationForm  
+class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields=["username","name","email","password"]
+        fields=["username","name","email","password1","password2",]
 
 
 class WriterForm(ModelForm):

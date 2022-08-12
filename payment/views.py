@@ -8,13 +8,15 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 import stripe
 from user.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 stripe.api_key="sk_test_51LC3cmLF9bIFNtJzGGYAMuG72tTrBtWXQLNnBkhOIlRj5UT2s06e3gbKmGUdmopR3kiu8INiAagArvYavyOk5NMV00QOXvvP5d"
 class Subscribe(TemplateView):
     template_name = "payment/subscribe.html"
  
 
-class PaymentView(TemplateView):
+class PaymentView(LoginRequiredMixin,TemplateView):
     template_name = "payment/checkout.html"
     def get_context_data(self, **kwargs):
        context = super(PaymentView,self).get_context_data(**kwargs)

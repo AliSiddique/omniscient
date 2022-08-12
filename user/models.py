@@ -5,8 +5,8 @@ import stripe
 from payment.models import Pricing, Subscription
 # Create your models here.
 class User(AbstractUser):
-    name = models.CharField(max_length=50,blank=True,null=True)
-    email = models.EmailField(blank=False,null=False)
+    name = models.CharField(max_length=50,blank=True ,null=True)
+    email = models.EmailField()
     stripe_customer_id = models.CharField(max_length=50)
 
 class Profile(models.Model):
