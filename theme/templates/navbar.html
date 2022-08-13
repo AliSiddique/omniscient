@@ -4,19 +4,26 @@
     <div class="flex justify-center">
      
       <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-      <a href="{% url 'article-list' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
+        {% if request.GET == '/' %}
+      <a href="{% url 'article-list' %}" class=" text-green-300 border-spacing-x-10 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
         Discover
       </a>
-      <a href="{% url 'single-category' 'Te' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1 text-sm font-medium">
+      {% else %}
+      <a href="{% url 'article-list' %}" class="  text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
+        Discover
+      </a>
+      {% endif %}
+
+      <a href="{% url 'single-category' 'Technology' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1 text-sm font-medium">
         Tech
       </a>
-      <a href="{% url 'single-category' 'FI' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
+      <a href="{% url 'single-category' 'Finance' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
         Finance
-      </a> <a href="{% url 'single-category' 'Po' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
+      </a> <a href="{% url 'single-category' 'Politics' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
         Politics
-      </a> <a href="{% url 'single-category' 'Me' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1 text-sm font-medium">
+      </a> <a href="{% url 'single-category' 'Media' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1 text-sm font-medium">
         Media
-      </a> <a href="{% url 'single-category' 'Sp' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
+      </a> <a href="{% url 'single-category' 'Sports' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
         Sports
       </a>
       <a href="{% url 'single-category' 'uni' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
@@ -102,9 +109,15 @@
   -->
   <div class="sm:hidden" x-show="open">
     <div class="pt-2 pb-3 space-y-1">
+      
     <a href="{%url 'article-list' %}" class="bg-green-50 border-green-500 text-green-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
       Discover
     </a>
+    <form method="GET" action="{% url 'search' %}">
+      <input class="rounded-lg" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
+      <button class="font-bold ml-2 border-1 rounded-lg p-2 text-lg" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      
+    </form>
     </div>
     <div class="pt-4 pb-3 border-t border-gray-200">
     <div class="flex items-center px-4">
@@ -123,6 +136,7 @@
       <a href="{%url 'editProfile' %}" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
         Setttings
         </a>
+    
       <a href="{%url 'logout' %}" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
       Log out
       </a>

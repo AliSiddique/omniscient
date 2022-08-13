@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-
+{% if request.user.is_authenticated %}
  <div>
 <div class="mx-40 mt-5">
   <h1 class="font-semibold text-lg">{{post.category}}</h1> 
@@ -84,8 +84,39 @@
   </div>
   
 </div>
+{% else %}
+<div class="mx-40 mt-5">
+  <h1 class="font-semibold text-lg">{{post.category}}</h1> 
+<h1 class="font-semibold text-lg mb-6">{{post.title|title}}</h1>
+  <img class="object-cover 	rounded-md" src="{{post.image.url}}" />
+  <div class="flex justify-between mt-6">
+    <div>
+      <p class="font-bold text-lg"><a class="flex gap-5" href="{% url 'single-profile' post.writer.slug%}">By :<img class="rounded-full h-10" src="{{post.writer.image.url}}"/> {{post.writer|title}}</a></p>
+      <small>Posted {{post.created_date|timesince}} ago</small>
+    </div>
+    
+    <div>
+      {% if fav%}
+      <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-sky-600	 rounded-lg text-white font-vold">Unsave</a>
+      {% else %}
+      <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-sky-600	 rounded-lg text-white font-vold">Save</a>
+      {%endif%}
+    </div>
+  </div>
+  <hr class="mt-4"/>
+  <p class="mx-5 px-20 mt-7 mb-20 leading-10	text-2xl font-medium">{{post.description|truncatechars:500|safe}}</p>
+  <p>You must be logged in to view this article</p>
 
+  <div class="bg-sky-500 p-36 flex justify-evenly gap-44">
+    <div>
+      <button class=""><a class="text-white text-4xl hover:opacity-60 transition duration-500 font-bold border-2	p-4 rounded-lg" href="{% url 'login' %}">Login</a></button>
+    </div>
+    <div>
+      <button><a class="text-white hover:opacity-60 transition duration-500 text-4xl font-bold  border-2	p-3 rounded-lg" href="{% url 'payment' %}">Subscribe</a></button>
+    </div>
+  </div>
 
+{% endif %}
 
 <input type="hidden" id="refreshed" value="false">
 

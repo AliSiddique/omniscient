@@ -28,7 +28,7 @@ class PaymentView(LoginRequiredMixin,TemplateView):
        return context
 
 
-class CreateCheckout(APIView):
+class CreateCheckout(LoginRequiredMixin,APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
         print(data)

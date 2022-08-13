@@ -28,18 +28,20 @@ class ArticleDetail(FormMixin,DetailView):
     form_class = CommentForm
     context_object_name = "post"
     def get_context_data(self, **kwargs):
+        subscription = None
+        pricing_tier = None
         fav = bool
         context = super(ArticleDetail,self).get_context_data(**kwargs)
         course = get_object_or_404(Article,slug=self.kwargs['slug'])
         posts = Article.objects.filter(category=course.category).exclude(slug=course.slug)[:3]
         if self.request.user.is_authenticated:
             if course.favourites.filter(id=self.request.user.profile.id).exists():
-                fav = True
+                    fav = True
         course.views +=1
         course.save()
-    
-        subscription = self.request.user.subscription
-        pricing_tier  = subscription.pricing
+        if self.request.user.is_authenticated:
+            subscription = self.request.user.subscription
+            pricing_tier  = subscription.pricing
     
         context.update({
             "has_permission":pricing_tier in course.pricing_tiers.all(),

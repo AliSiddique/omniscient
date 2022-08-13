@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+    enabled:true,
     purge:[
         '../templates/**/*.html',
         '../../templates/**/*.html'
@@ -46,6 +47,19 @@ module.exports = {
          */
         // '../../**/*.py'
     ],
+    options:{
+        safelist: [
+            'bg-green-50', 
+            'border-green-400',
+            'bg-blue-50', 
+            'border-blue-400',
+            'bg-red-100',
+            'border-red-400',
+            'text-green-700',
+            'text-blue-700',
+            'text-red-700'
+        ]
+    },
     theme: {
         extend: {},
     },

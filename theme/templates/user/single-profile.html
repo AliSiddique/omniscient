@@ -6,13 +6,14 @@
 
 <!-- Modal toggle -->
   <div>
-
   <section class="hero text-center flex justify-center container max-w-screen-lg mx-auto pb-10">
 
     <img class="mt-5 rounded-full h-60	 flex justify-center	text-center" src="{{profile.image.url}}" />
+
   </section>
 
   <h1 class="text-center text-5xl  font-extrabold mt-4 font-press-start">{{profile.name|title}}</h1>
+  <!-- <h1>Joined {{profile.user.date_joined|date:"M Y"}}</h1> -->
 
   <h1 class="text-center text-xl mx-96    mt-4 font-press-start">{{profile.bio}}</h1>
  <div class="text-center text-md gap-10 flex justify-center font-extrabold mt-4 font-press-start">
@@ -41,10 +42,10 @@
     <a href="{% url 'article-detail' post.slug%}">
     <div class=" text-black font-semibold flex gap-12 justify-between rounded-lg p-5">
       <div>
-        <img class="rounded-sm h-40	" src="{{post.image.url}}" />
+        <img class="rounded-sm h-40 w-40	" src="{{post.image.url}}" />
       </div>
       <div>
-        <h1>{{post.title}}</h1>
+        <h1><b>{{post.title}}</b></h1>
         <p>{{post.description|truncatechars:120|safe}}</p>
         <small>Views:{{post.views}}</small>
       </div>

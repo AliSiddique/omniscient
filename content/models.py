@@ -5,13 +5,13 @@ from user.models import Profile
 from payment.models import Pricing
 # Create your models here.
 CHOICES =(
-    ("Ec", "Economy"),
-    ("FI", "Finance"),
-    ("Po", "Politics"),
-    ("TE", "Technology"),
-    ("Sp", "Sports"),
-    ("uni","University"),
-    ("Me","Media")
+    ("Economy", "Economy"),
+    ("Finance", "Finance"),
+    ("Politics", "Politics"),
+    ("Technology", "Technology"),
+    ("Sports", "Sports"),
+    ("Uni","University"),
+    ("Media","Media")
 )
 class Article(models.Model):
     writer=models.ForeignKey(Profile,on_delete=models.CASCADE,blank=True,null=True)
