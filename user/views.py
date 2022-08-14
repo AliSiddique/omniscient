@@ -2,7 +2,7 @@ from multiprocessing import context
 import profile
 from django.shortcuts import render,reverse,redirect
 from django.contrib.auth.views import LoginView
-from .forms import CreateUserForm,ProfileForm, WriterForm
+from .forms import CreateUser,ProfileForm, WriterForm
 from django.views.generic import CreateView
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth import logout
@@ -11,10 +11,10 @@ from django.contrib.auth.forms import PasswordChangeForm
 # Create your views here.
 class UserSignupView(CreateView):
     template_name = "user/signup.html"
-    form_class = CreateUserForm
+    form_class = CreateUser
 
     def get_success_url(self):
-        return reverse('article-list')
+        return reverse('login')
 
 
 class LoginView(LoginView):

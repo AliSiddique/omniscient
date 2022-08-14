@@ -11,18 +11,19 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
+    username = models.CharField(max_length=50)
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15,blank=True,null=True)
     image = models.ImageField(blank=True,null=True)
-    bio = models.TextField(max_length=500,blank=True,null=True)
-    uni = models.CharField(max_length=100,blank=True,null=True)
+    bio = models.TextField(max_length=500,blank=True,null=True,default=None)
+    uni = models.CharField(max_length=100,blank=True,null=True,default=None)
     slug= models.SlugField(max_length=30, blank=True,  null=True,unique=True)
-    twitter = models.CharField(max_length=40)
-    website = models.URLField()
+    twitter = models.CharField(max_length=40,blank=True,null=True)
+    website = models.URLField(blank=True,null=True)
     joined = models.DateTimeField(auto_now_add=True)
     is_writer = models.BooleanField(default=False)
-    views = models.BigIntegerField()
+    views = models.BigIntegerField(default=0)
     
     def __str__(self) -> str:
          return self.user.username
@@ -37,9 +38,10 @@ class Profile(models.Model):
 def user_profile_create(instance,created,sender,**kwargs):
     if created:
             user = instance
-            profile = Profile.objects.create(
+            Profile.objects.create(
                 user=user,
                 name = user.name,
+                username = user.username,
                 email=user.email,
                 slug=user.username
             )
@@ -61,7 +63,7 @@ def user_profile_create(instance,created,sender,**kwargs):
             subscription.save()
             subscription.user.stripe_customer_id = stripe_customer["id"]
             subscription.user.save()
-post_save.connect(user_profile_create,sender=User)
+post_save.connect(user_profile_create,sender=User,dispatch_uid="user_profile_create")
 
 
 def updateUser(sender,instance,created,**kwargs):

@@ -24,6 +24,8 @@
   <i class="text-3xl fa-solid fa-inbox"></i>
 
 </a>
+Billing plan: {{request.user.subscription.pricing.name}}
+
 {% if request.user == profile.user %}
 <a href="{% url 'editProfile' %}" class="text-3xl" >Edit</a>
 {% endif %}

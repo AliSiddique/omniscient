@@ -37,8 +37,9 @@ class ArticleDetail(FormMixin,DetailView):
         if self.request.user.is_authenticated:
             if course.favourites.filter(id=self.request.user.profile.id).exists():
                     fav = True
-        course.views +=1
-        course.save()
+        if  self.request.user != course.writer and  self.request.user.is_authenticated:        
+            course.views +=1
+            course.save()
         if self.request.user.is_authenticated:
             subscription = self.request.user.subscription
             pricing_tier  = subscription.pricing

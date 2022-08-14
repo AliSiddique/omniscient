@@ -3,7 +3,8 @@
 {% load tailwind_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
-
+<a href="https://twitter.com/share?text={{post.description|truncatechars:90}}&url={{request.get_full_path}}&hashtags=&via=OMniscient">Share</a>
+<a href="https://facebook.com/share.php?u={{request.get_full_path}}">FACE</a>
 {% if request.user.is_authenticated %}
  <div>
 <div class="mx-40 mt-5">

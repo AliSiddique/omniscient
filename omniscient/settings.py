@@ -142,6 +142,10 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
 CRISPY_TEMPLATE_PACK = "tailwind"
 LOGIN_REDIRECT_URL = "article-list"
+LOGIN_URL = "login"
 MEDIA_URL = '/media/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://5a8c-81-111-17-130.ngrok.io'
+]

@@ -4,7 +4,7 @@
     <div class="flex justify-center">
      
       <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-        {% if request.GET == '/' %}
+        {% if '' in request.path  %}
       <a href="{% url 'article-list' %}" class=" text-green-300 border-spacing-x-10 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
         Discover
       </a>
@@ -32,8 +32,11 @@
       <a href="{% url 'profile-all' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
         Writers
       </a>
+      
+    
       </div>
     </div>
+    
     <div class="hidden sm:ml-6 sm:flex sm:items-center">
       <!-- Profile dropdown -->
       {% if request.user.is_authenticated %}
@@ -84,7 +87,11 @@
       {% endif %}
       
     </div>
-    
+    <form method="GET" action="{% url 'search' %}">
+      <input class="rounded-lg" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
+      <button class="font-bold ml-2 border-1 rounded-lg p-2 text-lg" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      
+    </form>
     <div class="-mr-2 flex items-center sm:hidden">
       <button @click="open = !open" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
       <span class="sr-only">Open main menu</span>

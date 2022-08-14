@@ -554,7 +554,7 @@ function retryInvoiceWithNewPaymentMethod({
   priceId
 }) {
   return (
-    fetch("{% url 'article-list' %}", {
+    fetch("{% url 'retry-invoice' %}", {
       method: 'post',
       headers: {
         'Content-Type': "application/json",

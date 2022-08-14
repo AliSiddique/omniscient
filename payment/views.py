@@ -28,7 +28,7 @@ class PaymentView(LoginRequiredMixin,TemplateView):
        return context
 
 
-class CreateCheckout(LoginRequiredMixin,APIView):
+class CreateCheckout(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
         print(data)
@@ -119,3 +119,34 @@ def webhook(request):
     return HttpResponse()
 
 
+class RetryInvoiceView(APIView):
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        customer_id = request.user.stripe_customer_id
+        try:
+
+            stripe.PaymentMethod.attach(
+                data['paymentMethodId'],
+                customer=customer_id,
+            )
+            # Set the default payment method on the customer
+            stripe.Customer.modify(
+                customer_id,
+                invoice_settings={
+                    'default_payment_method': data['paymentMethodId'],
+                },
+            )
+
+            invoice = stripe.Invoice.retrieve(
+                data['invoiceId'],
+                expand=['payment_intent'],
+            )
+            data = {}
+            data.update(invoice)
+
+            return Response(data)
+        except Exception as e:
+
+            return Response({
+                "error": {'message': str(e)}
+            })
