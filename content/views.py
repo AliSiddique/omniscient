@@ -97,9 +97,12 @@ def favourite_add(request,slug):
     post = get_object_or_404(Article,slug=slug)
     if post.favourites.filter(id=request.user.profile.id).exists():
             post.favourites.remove(request.user.profile)
+            messages.success(request,"Removed from saved articles!")
+
 
     else:
             post.favourites.add(request.user.profile)
+            messages.success(request,"Added to saved articles!")
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 

@@ -6,11 +6,12 @@
 <a href="https://twitter.com/share?text={{post.description|truncatechars:90}}&url={{request.get_full_path}}&hashtags=&via=OMniscient">Share</a>
 <a href="https://facebook.com/share.php?u={{request.get_full_path}}">FACE</a>
 {% if request.user.is_authenticated %}
+
  <div>
 <div class="mx-40 mt-5">
   <h1 class="font-semibold text-lg">{{post.category}}</h1> 
 <h1 class="font-semibold text-lg mb-6">{{post.title|title}}</h1>
-  <img class="object-cover 	rounded-md" src="{{post.image.url}}" />
+  <img class="object-cover rounded-md" src="{{post.image.url}}" />
   <div class="flex justify-between mt-6">
     <div>
       <p class="font-bold text-lg"><a class="flex gap-5" href="{% url 'single-profile' post.writer.slug%}">By :<img class="rounded-full h-10" src="{{post.writer.image.url}}"/> {{post.writer|title}}</a></p>
@@ -25,6 +26,8 @@
       {%endif%}
     </div>
   </div>
+  {% if has_permission %}
+
   <hr class="mt-4"/>
   <p class="mx-5 px-20 mt-7 mb-20 leading-10	text-2xl font-medium">{{post.description|safe}}</p>
 
@@ -85,6 +88,20 @@
   </div>
   
 </div>
+{% else %}
+<p class="mx-5 px-20 mt-7 mb-20 leading-10	text-2xl font-medium">{{post.description|truncatechars:500|safe}}</p>
+<p>You must be subsribed in to view this article</p>
+
+<div class="bg-sky-500 p-36 flex justify-evenly gap-44">
+  <div>
+    <button class=""><a class="text-white text-4xl hover:opacity-60 transition duration-500 font-bold border-2	p-4 rounded-lg" href="{% url 'login' %}">Login</a></button>
+  </div>
+  <div>
+    <button><a class="text-white hover:opacity-60 transition duration-500 text-4xl font-bold  border-2	p-3 rounded-lg" href="{% url 'payment' %}">Subscribe</a></button>
+  </div>
+</div>
+{% endif %}
+
 {% else %}
 <div class="mx-40 mt-5">
   <h1 class="font-semibold text-lg">{{post.category}}</h1> 

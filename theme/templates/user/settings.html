@@ -2,56 +2,26 @@
 {% load tailwind_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h1>Settings for {{request.user.username}}</h1>
+<div class="flex text-center justify-center mt-7 font-bold text-lg">
+  <a href="{% url 'editProfile' %}" class="mx-6" >Edit Profile</a>
+  <a href="{% url 'change-password' %}" class="mx-6" >Password</a>
+  <a href="{% url 'billing' request.user.username %}" class="mx-6" >Billing</a>
+</div>
 
-<div class="flex justify-center">
-    <div class="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto border-r">
-      <h2 class="text-3xl font-semibold text-center text-blue-800">Logo</h2>
+<section class="hero text-center flex justify-center container max-w-screen-lg mx-auto pb-10">
 
+  <img class="mt-5 rounded-full h-60	 flex justify-center	text-center" src="{{request.user.profile.image.url}}" />
 
-      <div class="flex flex-col justify-between mt-6">
-        <aside>
-          <ul>
-            <li>
-              <a class="flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-md " href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
+</section>
 
-                <span class="mx-4 font-medium">Profile</span>
-              </a>
-            </li>
-
-            <li>
-              <a class="flex items-center px-4 py-2 mt-5 text-gray-600 rounded-md hover:bg-gray-200" href="{% url 'change-password' %}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-
-                <span class="mx-4 font-medium">Password</span>
-              </a>
-            </li>
-          </ul>
-
-        </aside>
-        
-      </div>
-    </div>
-    <div class=" h-full p-4 m-8 overflow-y-auto">
-      <div class="flex items-center justify-center border-4 border-dotted">
-        <div class="max-w-lg mx-auto mt-10"> 
-            <form method="POST" enctype="multipart/form-data" >
-                 {% csrf_token %}
-                 {{form|crispy}}
-                <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-indigo-500 p-3 " type="submit">Update</button>
-                </form>
-            </div>      
-          </div>
-    </div>
+<div class="max-w-lg mx-auto mt-10 mb-10"> 
+  <form method="POST" action="" enctype="multipart/form-data">
+       {% csrf_token %}
+       {{form|crispy}}
+       <!-- <a class="text-blue-600 font-bold " href="{% url 'password-reset' %}"> Forgot password </a> -->
+  
+      <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-sky-600 p-3 " type="submit">Update</button>
+      </form>
+  
+  </div>
 {% endblock content %}

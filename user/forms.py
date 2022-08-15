@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from .models import User,Profile
 from django.contrib.auth.forms import UserCreationForm  
+from django import forms
 class CreateUser(UserCreationForm):
     class Meta:
         model = User
@@ -13,10 +14,17 @@ class CreateUser(UserCreationForm):
 class WriterForm(ModelForm):
     class Meta:
         model = Profile
-        fields= ['username','name','email','uni','bio','image','phone','twitter','website','slug']  
+        fields= ['username','name','email','uni','bio','image','phone','twitter','website','slug']
+        labels ={"slug":"URL"}
+  
 
 
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields= ['name','email']                    
+        fields= ['name','email']                
+        
+
+
+class CancelSubscription(forms.Form):
+    hidden = forms.HiddenInput()

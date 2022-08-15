@@ -76,22 +76,12 @@
       </div>
       </div>
       {% else %}
-      <div class="flex justify-end">
-        <form method="GET" action="{% url 'search' %}">
-          <input class="rounded-lg" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
-          <button class="font-bold ml-2 border-1 rounded-lg p-2 text-lg" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-          
-        </form>
-      </div>
+
     
       {% endif %}
       
     </div>
-    <form method="GET" action="{% url 'search' %}">
-      <input class="rounded-lg" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
-      <button class="font-bold ml-2 border-1 rounded-lg p-2 text-lg" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-      
-    </form>
+
     <div class="-mr-2 flex items-center sm:hidden">
       <button @click="open = !open" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
       <span class="sr-only">Open main menu</span>
@@ -120,11 +110,7 @@
     <a href="{%url 'article-list' %}" class="bg-green-50 border-green-500 text-green-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
       Discover
     </a>
-    <form method="GET" action="{% url 'search' %}">
-      <input class="rounded-lg" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
-      <button class="font-bold ml-2 border-1 rounded-lg p-2 text-lg" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-      
-    </form>
+ 
     </div>
     <div class="pt-4 pb-3 border-t border-gray-200">
     <div class="flex items-center px-4">

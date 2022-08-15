@@ -17,14 +17,19 @@
 
   <h1 class="text-center text-xl mx-96    mt-4 font-press-start">{{profile.bio}}</h1>
  <div class="text-center text-md gap-10 flex justify-center font-extrabold mt-4 font-press-start">
+  {% if profile.twitter %}
 <a href="{{profile.twitter}}" class="twitter-follow-button" data-show-count="false">
+  {% endif %}
   <i  class="text-3xl fa-brands fa-twitter"></i>
 </a>
+{% if profile.email %}
 <a href="mailto:{{profile.email}}">
+  {% endif %}
+
   <i class="text-3xl fa-solid fa-inbox"></i>
 
 </a>
-Billing plan: {{request.user.subscription.pricing.name}}
+
 
 {% if request.user == profile.user %}
 <a href="{% url 'editProfile' %}" class="text-3xl" >Edit</a>

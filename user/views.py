@@ -2,12 +2,16 @@ from multiprocessing import context
 import profile
 from django.shortcuts import render,reverse,redirect
 from django.contrib.auth.views import LoginView
-from .forms import CreateUser,ProfileForm, WriterForm
+from .forms import CancelSubscription, CreateUser,ProfileForm, WriterForm
 from django.views.generic import CreateView
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth import logout
 from .models import Profile, User
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView
+from django.views.generic.edit import FormMixin,FormView
+import stripe
 # Create your views here.
 class UserSignupView(CreateView):
     template_name = "user/signup.html"
@@ -79,3 +83,27 @@ def editAccount(request):
 def logout_view(request):
     logout(request)
     return redirect('article-list') 
+
+
+class CncelSubscriptionView(LoginRequiredMixin,FormView):
+    form_class = CancelSubscription
+
+    def get_success_url(self) -> str:
+        return reverse("editProfile")
+
+    def form_valid(self, form):
+        stripe.Subscription.delete(self.request.user.subscription.stripe_subscription_id)
+        return super().form_valid(form)
+    
+
+class UserSubscriptionView(LoginRequiredMixin,DetailView):
+    model =User
+    template_name = "user/billing.html"
+    slug_field = "username"
+    slug_url_kwarg = "username"
+    form_class = CancelSubscription
+
+
+
+
+
