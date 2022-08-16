@@ -85,7 +85,7 @@ def logout_view(request):
     return redirect('article-list') 
 
 
-class CncelSubscriptionView(LoginRequiredMixin,FormView):
+class CancelSubscriptionView(LoginRequiredMixin,FormView):
     form_class = CancelSubscription
 
     def get_success_url(self) -> str:

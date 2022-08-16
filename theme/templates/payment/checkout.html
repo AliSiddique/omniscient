@@ -5,7 +5,7 @@
 
   form {
     width: 30vw;
-    min-width: 500px;
+    min-width: 300px;
 
   }
   input {
@@ -132,7 +132,7 @@
   }
   @media only screen and (max-width: 600px) {
     form {
-      width: 80vw;
+      width: 20vw;
     }
   }
 </style>
@@ -292,7 +292,7 @@
                   Start your journey now!
               </span>
           </p>
-          <form class="text-center mx-auto mt-8  justify-center" id="subscription-form">
+          <form class="text-center mx-auto mt-8 min-w-max sm:w-40  justify-center" id="subscription-form">
             {% csrf_token %}
             <div  id="card-element"></div>
         

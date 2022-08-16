@@ -7,10 +7,10 @@
     display: none;
 }</style>
 <div class="max-w-lg mx-auto mt-10 mb-10"> 
-<form method="POST" action="">
+<form method="POST" action="" class="p-4">
      {% csrf_token %}
      {{form|crispy}}
-    <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-indigo-500 p-3 " type="submit">Sign up</button>
+    <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-sky-500 p-3 " type="submit">Sign up</button>
     </form>
     <p class="mt-4">Have an account?<a class="text-blue-600 font-bold " href="{% url 'login' %}">&nbsp; Log in</a></p>
 </div>
