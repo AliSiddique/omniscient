@@ -1,11 +1,14 @@
+from cmath import log
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,get_object_or_404,reverse
 from django.views.generic import DetailView,CreateView
 from django.utils import timezone
-from content.forms import CommentForm, ContactForm
+from content.forms import BecomeWriterForm, CommentForm, ContactForm
 from django.views.generic.edit import FormMixin
 from django.contrib import messages
 from content.models import Article
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 def ArticleList(request):  
     economy = Article.objects.filter(category='Ec').filter(published=True)[:7]
@@ -92,7 +95,7 @@ class contactView(CreateView):
     def get_success_url(self):
         messages.success(self.request, 'Your details have been submitted.')
         return reverse('contact')  
-
+@login_required
 def favourite_add(request,slug):
     post = get_object_or_404(Article,slug=slug)
     if post.favourites.filter(id=request.user.profile.id).exists():
@@ -126,3 +129,11 @@ def search(request):
 
     return render(request,'content/search.html',context)    
 
+class BecomeAWriter(LoginRequiredMixin,CreateView):
+    template_name = "content/become.html"
+    form_class = BecomeWriterForm 
+
+
+    def get_success_url(self):
+        messages.success(self.request, 'Thank you for applying we will get back to you shortly')
+        return reverse('becomeawriter')  

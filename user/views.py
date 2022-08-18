@@ -1,4 +1,4 @@
-from multiprocessing import context
+from django.contrib import messages
 import profile
 from django.shortcuts import render,reverse,redirect
 from django.contrib.auth.views import LoginView
@@ -18,6 +18,7 @@ class UserSignupView(CreateView):
     form_class = CreateUser
 
     def get_success_url(self):
+        messages.success(self.request,"Welcome to the Unireport!")    
         return reverse('login')
 
 
@@ -61,6 +62,7 @@ def editAccount(request):
             form = WriterForm(request.POST,request.FILES,instance=profile)
             if form.is_valid():
                 form.save()
+            messages.success(request,"Profile updated")    
             return redirect('editProfile')   
 
 
@@ -70,6 +72,7 @@ def editAccount(request):
             form = ProfileForm(request.POST,request.FILES,instance=profile)
             if form.is_valid():
                 form.save()
+            messages.success(request,"Profile updated")    
             return redirect('editProfile')   
               
     context ={
@@ -93,6 +96,7 @@ class CancelSubscriptionView(LoginRequiredMixin,FormView):
 
     def form_valid(self, form):
         stripe.Subscription.delete(self.request.user.subscription.stripe_subscription_id)
+        messages.success(self.request,"Subscription successfully cancelled")    
         return super().form_valid(form)
     
 

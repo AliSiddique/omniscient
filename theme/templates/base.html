@@ -19,7 +19,9 @@
 
 			<div class="flex justify-between mx-11 p-3">
 				<div>
-					<a href="{% url 'contact' %}">Contact</a>
+					<a href="{% url 'contact' %}">Contact  &nbsp;| &nbsp;</a>
+					<a href="{% url 'becomeawriter' %}">Become a Writer</a>
+
 					
 				</div>
 				<div>
@@ -34,7 +36,8 @@
 			</div>
 		
 		</div>
-		<h1 class="text-center text-5xl my-5 font-extrabold tracking-widest	">Omniscient</h1>
+		
+		<h1  class="text-center text-blue-300 text-5xl my-5 font-extrabold tracking-widest	"><i class="fa-solid fa-newspaper text-6xl text-sky-600"></i>theUnireport</h1>
 		<form  method="GET" action="{% url 'search' %}" class="text-center">
 			<input style="width: 300px; margin-left:50px;" class="rounded-lg sm:m-0" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
 			<button class="font-bold  border-1 rounded-lg p-2 text-lg ml-5" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>

@@ -8,13 +8,13 @@
 {% if request.user.is_authenticated %}
 
  <div>
-<div class="mx-40 mt-5">
-  <h1 class="font-semibold text-lg">{{post.category}}</h1> 
+<div class="lg:mx-40 xs:mx-20 mt-5">
+  <h1 class="font-semibold lg:text-lg sm:text-sm">{{post.category}}</h1> 
 <h1 class="font-semibold text-lg mb-6">{{post.title|title}}</h1>
   <img class="object-cover rounded-md" src="{{post.image.url}}" />
   <div class="flex justify-between mt-6">
     <div>
-      <p class="font-bold text-lg"><a class="flex gap-5" href="{% url 'single-profile' post.writer.slug%}">By :<img class="rounded-full h-10" src="{{post.writer.image.url}}"/> {{post.writer|title}}</a></p>
+      <p class="font-bold text-lg"><a class="flex gap-5" href="{% url 'single-profile' post.writer.slug%}">By :<img class="rounded-full h-10" src="{{post.writer.image.url}}"/> {{post.writer|title}} from {{post.writer.uni}}</a></p>
       <small>Posted {{post.created_date|timesince}} ago</small>
     </div>
     
@@ -24,12 +24,14 @@
       {% else %}
       <a href="{% url 'favourite_add' post.slug %}" class="p-2 bg-sky-600	 rounded-lg text-white font-vold">Save</a>
       {%endif%}
+   
+
     </div>
   </div>
   {% if has_permission %}
 
   <hr class="mt-4"/>
-  <p class="mx-5 px-20 mt-7 mb-20 leading-10	text-2xl font-medium">{{post.description|safe}}</p>
+  <p class="mx-5 lg:px-20  mt-7 mb-20 leading-10	lg:text-2xl font-medium">{{post.description|safe}}</p>
 
 
 
@@ -45,6 +47,7 @@
   <small>  {{ post.comments.all|length}} comments  </small>
 
   {% for post in post.comments.all %}
+  
   <div>
     <div class="flex mb-4 mt-4">
       {% if post.profile.is_writer %}
