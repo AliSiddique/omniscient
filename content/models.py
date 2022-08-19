@@ -92,7 +92,7 @@ uniChocies = (
     ("Cardiff University","Cardiff University"),
     ("University of Chester","University of Chester"),
     ("University of Chichester","University of Chichester"),
-    ("City university of London","City university of London"),
+    ("City University of London","City university of London"),
     ("Coventry University","Coventry University"),
     ("Cranfield University","Cranfield University"),
     ("De Montfort University","De Montfort University"),
@@ -199,13 +199,22 @@ uniChocies = (
     ("York St John University","York St John University")
 
 )
-
+fieldChoices = (
+    ("Economy", "Economy"),
+    ("Finance", "Finance"),
+    ("Politics", "Politics"),
+    ("Technology", "Technology"),
+    ("Sports", "Sports"),
+    ("Uni","University"),
+    ("Media","Media")
+)
 class BecomeWriter(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField()
     year = models.CharField(choices=YearChoices,max_length=50)
     univeristy = models.CharField(choices=uniChocies,max_length=100)
     course= models.CharField(max_length=50,default='')
+    field = models.CharField(choices=fieldChoices,max_length=50)
     file= models.FileField()
     accepted = models.BooleanField(default=False)
 

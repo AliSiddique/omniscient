@@ -15,7 +15,7 @@ class WriterForm(ModelForm):
     class Meta:
         model = Profile
         fields= ['username','name','email','uni','bio','image','phone','twitter','website','slug']
-        labels ={"slug":"URL","image":"Profile image","uni":"University"}
+        labels ={"slug":"URL <small>(Your name in the URL)</small>","image":"Profile image","uni":"University"}
   
 
 

@@ -8,8 +8,8 @@
 {% if request.user.is_authenticated %}
 
  <div>
-<div class="lg:mx-40 xs:mx-20 mt-5">
-  <h1 class="font-semibold lg:text-lg sm:text-sm">{{post.category}}</h1> 
+<div class="lg:mx-40 mt-5">
+  <h1 class="font-semibold lg:text-lg xs:text-sm">{{post.category}}</h1> 
 <h1 class="font-semibold text-lg mb-6">{{post.title|title}}</h1>
   <img class="object-cover rounded-md" src="{{post.image.url}}" />
   <div class="flex justify-between mt-6">
@@ -92,21 +92,21 @@
   
 </div>
 {% else %}
-<p class="mx-5 px-20 mt-7 mb-20 leading-10	text-2xl font-medium">{{post.description|truncatechars:500|safe}}</p>
-<p>You must be subsribed in to view this article</p>
+<p class="mx-5 lg:px-20 mt-7 mb-20 leading-10	lg:text-2xl font-medium">{{post.description|truncatechars:500|safe}}</p>
+<p class="text-center font-bold">You must be subscribed in to view this article</p>
 
 <div class="bg-sky-500 p-36 flex justify-evenly gap-44">
   <div>
-    <button class=""><a class="text-white text-4xl hover:opacity-60 transition duration-500 font-bold border-2	p-4 rounded-lg" href="{% url 'login' %}">Login</a></button>
+    <button class=""><a class="text-white lg:text-4xl hover:opacity-60 transition duration-500 font-bold border-2	p-4 rounded-lg" href="{% url 'login' %}">Login</a></button>
   </div>
   <div>
-    <button><a class="text-white hover:opacity-60 transition duration-500 text-4xl font-bold  border-2	p-3 rounded-lg" href="{% url 'payment' %}">Subscribe</a></button>
+    <button><a class="text-white hover:opacity-60 transition duration-500 lg:text-4xl font-bold  border-2	p-3 rounded-lg" href="{% url 'payment' %}">Subscribe</a></button>
   </div>
 </div>
 {% endif %}
 
 {% else %}
-<div class="mx-40 mt-5">
+<div class="lg:mx-40 sm:mx-3 mt-5">
   <h1 class="font-semibold text-lg">{{post.category}}</h1> 
 <h1 class="font-semibold text-lg mb-6">{{post.title|title}}</h1>
   <img class="object-cover 	rounded-md" src="{{post.image.url}}" />
@@ -125,15 +125,16 @@
     </div>
   </div>
   <hr class="mt-4"/>
-  <p class="mx-5 px-20 mt-7 mb-20 leading-10	text-2xl font-medium">{{post.description|truncatechars:500|safe}}</p>
-  <p>You must be logged in to view this article</p>
+  <p class="mx-5 lg:px-20 mt-7 mb-20 leading-10	lg:text-2xl font-medium">{{post.description|truncatechars:500|safe}}</p>
+  <p class="text-center font-bold text-3xl">You must be logged in to view this article</p>
 
   <div class="bg-sky-500 p-36 flex justify-evenly gap-44">
+
     <div>
-      <button class=""><a class="text-white text-4xl hover:opacity-60 transition duration-500 font-bold border-2	p-4 rounded-lg" href="{% url 'login' %}">Login</a></button>
+      <button class=""><a class="text-white lg:text-4xl hover:opacity-60 transition duration-500 font-bold border-2	p-4 rounded-lg" href="{% url 'login' %}">Login</a></button>
     </div>
     <div>
-      <button><a class="text-white hover:opacity-60 transition duration-500 text-4xl font-bold  border-2	p-3 rounded-lg" href="{% url 'payment' %}">Subscribe</a></button>
+      <button><a class="text-white hover:opacity-60 transition duration-500 lg:text-4xl font-bold  border-2	p-3 rounded-lg" href="{% url 'payment' %}">Subscribe</a></button>
     </div>
   </div>
 

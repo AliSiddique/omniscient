@@ -6,13 +6,20 @@
     .asteriskField {
         display: none;
     }</style>
+
 <h1 class="text-center font-bold text-5xl mt-5">Become a Unireport writer!</h1>
-<p class="text-center text-base font-semibold mt-5">Interested in writing in a your chosen career field? Start writing on theUnireport and show your future employer what you can do! </p>
-<div class="max-w-lg mx-auto mt-10 sm:mx-20" > 
-<form method="POST" action="" class="p-4">
-     {% csrf_token %}
-     {{form|crispy}}
-    <button class="text-white mb-6 rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-sky-500 p-3 " type="submit">Submit</button>
-    </form>
+<h2 class="text-center font-bold text-xl mt-5">Interested in writing in a your chosen career field? 
+</h2>
+
+<p class="text-center text-base font-semibold mt-5">Start writing on theUnireport and show your future employer what you can do!<br/>Please fill out the form below to apply </p>
+<div class="max-w-lg mx-auto mt-10 " > 
+    <form method="POST" action="" class="p-6" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <!-- <a class="text-blue-600 font-bold " href="{% url 'password-reset' %}"> Forgot password </a> -->
+   
+       <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-sky-600 p-3 " type="submit">Submit</button>
+       </form>
 </div>
+
 {% endblock content %}

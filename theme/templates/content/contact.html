@@ -2,17 +2,15 @@
 {% load tailwind_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
-<style>
-    .asteriskField {
-        display: none;
-    }</style>
 <h1 class="text-center font-bold text-5xl mt-5">Contact</h1>
 <p class="text-center text-base font-semibold mt-5">If you have any problems with our serivces please use the contact form below so we can aid you.</p>
-<div class="max-w-lg mx-auto mt-10 sm:mx-20" > 
-<form method="POST" action="" class="p-4">
-     {% csrf_token %}
-     {{form|crispy}}
-    <button class="text-white mb-6 rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-sky-500 p-3 " type="submit">Submit</button>
-    </form>
+<div class="max-w-lg mx-auto mt-10 " > 
+    <form method="POST" action="" class="p-6">
+        {% csrf_token %}
+        {{form|crispy}}
+        <!-- <a class="text-blue-600 font-bold " href="{% url 'password-reset' %}"> Forgot password </a> -->
+   
+       <button class="text-white rounded-lg hover:opacity-70 transition duration-3000  font-bold bg-sky-600 p-3 " type="submit">Submit</button>
+       </form>
 </div>
 {% endblock content %}

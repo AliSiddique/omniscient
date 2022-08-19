@@ -3,7 +3,7 @@
 <style>
   /* Variables */
 
-  form {
+  /* form {
     width: 30vw;
     min-width: 300px;
 
@@ -17,10 +17,10 @@
     font-size: 16px;
     width: 100%;
     background: white;
-  }
-  .hidden {
+  } */
+  /* .hidden {
     display: none;
-  }
+  } */
   #card-errors {
     color: rgb(105, 115, 134);
     text-align: left;
@@ -42,7 +42,6 @@
   /* Buttons and links */
   button {
     background: red;
-    color: #ffffff;
     font-family: Arial, sans-serif;
     border-radius: 0 0 4px 4px;
     border: 0;
@@ -137,14 +136,14 @@
   }
 </style>
 
-<h1 class="text-center text-3xl">Enroll for the {{pricing_tier.name}}</h1>
+<h1 class="text-center text-3xl mt-4">Enroll for the {{pricing_tier.name}}</h1>
 <p class="text-center text-lg">{% if pricing_tier.currency == 'gbp' %}
   £{{pricing_tier.price}} per month
   {% else %}
   ${{pricing_tier.price}} per month
   {%endif%}
 </p>
-<h1 class="text-center text-lg">Get access to articles on omniscient for only  £{{pricing_tier.price}} a month</h1>
+<h1 class="text-center text-lg">Get access to articles on theUnireport for only  £{{pricing_tier.price}} a month</h1>
 
 
 <div class="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -292,13 +291,28 @@
                   Start your journey now!
               </span>
           </p>
-          <form class="text-center mx-auto mt-8 min-w-max sm:w-40  justify-center" id="subscription-form">
-            {% csrf_token %}
-            <div  id="card-element"></div>
+          <!-- form {
+            width: 30vw;
+            min-width: 300px;
         
-            <button class="bg-indigo-500" id="submit" type="submit">
+          }
+          input {
+            border-radius: 6px;
+            margin-bottom: 6px;
+            padding: 12px;
+            border: 1px solid rgba(50, 50, 93, 0.1);
+            height: 44px;
+            font-size: 16px;
+            width: 100%;
+            background: white;
+          } -->
+          <form class="text-center mx-auto mt-8 min-w-max sm:w-40  justify-center" style="min-width: 300px;" id="subscription-form">
+            {% csrf_token %}
+            <div  id="card-element" ></div>
+        
+            <button class="bg-sky-600 text-white" id="submit" type="submit">
                 <div class="spinner hidden" id="spinner"></div>
-                <span class="bg-indigo-500" id="button-text">Subscribe</span>
+                <span class="bg-sky-600" id="button-text">Subscribe</span>
             </button>
             <p id="card-errors" role="alert"></p>
           </form> 

@@ -3,6 +3,10 @@
 <html lang="en">
 	<head>
     <title>Home</title>
+	<style>
+		.asteriskField {
+			display: none;
+		}</style>
 	<script src="https://js.stripe.com/v3/"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,19 +21,19 @@
 	<body class="p-0 lg:m-0 sm:m-2 h-full">
 		<div class=" bg-black text-white font-semibold">
 
-			<div class="flex justify-between mx-11 p-3">
+			<div class="flex justify-between lg:mx-11 p-3">
 				<div>
-					<a href="{% url 'contact' %}">Contact  &nbsp;| &nbsp;</a>
-					<a href="{% url 'becomeawriter' %}">Become a Writer</a>
+					<a href="{% url 'contact' %}" class="text-sm">Contact  &nbsp;| &nbsp;</a>
+					<a href="{% url 'becomeawriter' %}" class="text-sm">Become a Writer</a>
 
 					
 				</div>
 				<div>
-					<a href="{% url 'payment' %}">Subscribe | </a>
+					<a href="{% url 'payment' %}" class="text-sm">Subscribe | </a>
 					{% if request.user.is_authenticated %}
-					<a href="{% url 'logout' %}">Logout</a>
+					<a href="{% url 'logout' %}" class="text-sm">Logout</a>
 					{% else %}
-					<a href="{% url 'signup' %}">Signup</a>
+					<a href="{% url 'signup' %}" class="text-sm">Signup</a>
 					{% endif %}
 				</div>
 	
@@ -37,7 +41,7 @@
 		
 		</div>
 		
-		<h1  class="text-center text-blue-300 text-5xl my-5 font-extrabold tracking-widest	"><i class="fa-solid fa-newspaper text-6xl text-sky-600"></i>theUnireport</h1>
+		<h1  class="text-center text-black text-5xl my-5 font-extrabold tracking-widest	"><i class="fa-solid fa-newspaper text-6xl text-black"></i>theUnireport</h1>
 		<form  method="GET" action="{% url 'search' %}" class="text-center">
 			<input style="width: 300px; margin-left:50px;" class="rounded-lg sm:m-0" name="search" type="search"  value="{{values.search}}" placeholder="Search for articles"/>
 			<button class="font-bold  border-1 rounded-lg p-2 text-lg ml-5" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -259,7 +263,7 @@
 						</div>
 						<div class="bg-gray-100">
 						  <div class="lg:container lg:mx-auto sm:m-0 py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-							<p class="text-gray-500 text-sm text-center sm:text-left">©<span id="year"> 2020</span> Tailblocks —
+							<p class="text-gray-500 text-sm text-center sm:text-left">©<span id="year"> 2020</span> theUnireport —
 							  <a href="https://twitter.com/knyttneve" class="text-gray-600 ml-1" target="_blank" rel="noopener noreferrer">@knyttneve</a>
 							</p>
 							<span class="sm:ml-auto sm:mt-0 mt-2 sm:w-auto w-full sm:text-left text-center text-gray-500 text-sm">By students for students</span>
