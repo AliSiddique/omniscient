@@ -102,6 +102,7 @@ class contactView(CreateView):
     def get_success_url(self):
         messages.success(self.request, 'Your details have been submitted.')
         return reverse('contact')  
+        
 @login_required
 def favourite_add(request,slug):
     post = get_object_or_404(Article,slug=slug)

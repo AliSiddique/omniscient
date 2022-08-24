@@ -46,17 +46,16 @@ def user_profile_create(instance,created,sender,**kwargs):
                 email=user.email,
                 slug=user.username
             )
-            if not user.is_superuser:
-                free_pricing = Pricing.objects.get(name='Free')
-                subscription  = Subscription.objects.create(
-                user=instance,
-                pricing=free_pricing)
+            free_pricing = Pricing.objects.get(name='Free')
+            subscription  = Subscription.objects.create(
+            user=instance,
+            pricing=free_pricing)
             stripe_customer = stripe.Customer.create(
                 email=instance.email
             )
             stripe_subscription = stripe.Subscription.create(
             customer=stripe_customer["id"],
-            items=[{'price': 'price_1LC3oMLF9bIFNtJzqvtUFOxO'}],
+            items=[{'price': 'price_1LZFnuLF9bIFNtJzL7br6j0h'}],
             trial_period_days = 7
                 )
             print(stripe_subscription)    

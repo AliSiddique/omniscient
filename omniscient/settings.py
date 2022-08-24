@@ -15,7 +15,7 @@ import os
 import environ
 environ.Env.read_env()
 env = environ.Env(
-    DEBUG=(bool,False)
+    DEBUG=(bool,True)
 )
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -169,9 +169,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 
 CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000',
     'https://5a8c-81-111-17-130.ngrok.io',
     "https://theunireport.com",
-   "https://theunireport.herokuapp.com/",
+    "https://theunireport.herokuapp.com/",
 ]
 STATIC_ROOT= os.path.join(BASE_DIR,'static/')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
