@@ -37,7 +37,7 @@ STRIPE_PUBLIC_KEY=env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY=env('STRIPE_SECRET_KEY')
 WEBHOOK_SECRET =env('WEBHOOK_SECRET')
 
-ALLOWED_HOSTS = ["localhost","127.0.0.1","https://theunireport.com","theunireport.herokuapp.com/"]
+ALLOWED_HOSTS = ["localhost","127.0.0.1","https://theunireport.com","theunireport.herokuapp.com"]
 
 
 # Application definition
