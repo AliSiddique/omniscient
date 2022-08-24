@@ -9,6 +9,8 @@ from django.contrib import messages
 from content.models import Article
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
+
 # Create your views here.
 def ArticleList(request):  
     economy = Article.objects.filter(category='Ec').filter(published=True)[:7]
@@ -79,9 +81,14 @@ class ArticleDetail(FormMixin,DetailView):
         return reverse("article-detail", kwargs={"slug":self.kwargs["slug"]})
 
 def articlePages(request,slug):
-    posts = Article.objects.filter(category=slug)
+    posts = Article.objects.filter(category=slug).order_by('-created_date')
+    paginator = Paginator(posts,15)
+    page = request.GET.get('page')
+    paged_listings = paginator.get_page(page)
     context={
         "posts":posts,
+        'moreposts':paged_listings,
+
 
     }
     return render(request,"content/category-single.html",context)

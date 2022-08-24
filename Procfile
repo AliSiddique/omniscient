@@ -1,0 +1,1 @@
+web: gunicorn omniscient.wsgi --log-file -

@@ -4,15 +4,10 @@
     <div class="flex justify-center">
      
       <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-        {% if '' in request.path  %}
-      <a href="{% url 'article-list' %}" class=" text-green-300 border-spacing-x-10 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
+      <a href="{% url 'article-list' %}" class="  border-spacing-x-10 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
         Discover
       </a>
-      {% else %}
-      <a href="{% url 'article-list' %}" class="  text-gray-900 inline-flex justify-center items-center px-1 pt-1  text-sm font-medium">
-        Discover
-      </a>
-      {% endif %}
+  
 
       <a href="{% url 'single-category' 'Technology' %}" class=" text-gray-900 inline-flex justify-center items-center px-1 pt-1 text-sm font-medium">
         Tech

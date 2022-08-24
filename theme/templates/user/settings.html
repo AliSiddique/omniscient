@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load tailwind_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
@@ -10,8 +11,11 @@
 
 <section class="hero text-center flex justify-center container max-w-screen-lg mx-auto pb-10">
 
+  {% if request.user.profile.image %}
   <img class="mt-5 rounded-full h-60	 flex justify-center	text-center" src="{{request.user.profile.image.url}}" />
-
+  {% else %}
+  <div class="mt-5 rounded-full h-60	 flex justify-center	text-center">None</div>
+  {% endif %}
 </section>
 
 <div class="max-w-lg mx-auto mt-10 mb-10"> 

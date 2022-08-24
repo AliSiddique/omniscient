@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin,FormView
 import stripe
+from django.core.paginator import Paginator
 # Create your views here.
 class UserSignupView(CreateView):
     template_name = "user/signup.html"
@@ -31,8 +32,13 @@ class LoginView(LoginView):
 
 def profiles(request):
     profiles = Profile.objects.filter(is_writer=True)
+    paginator = Paginator(profiles,15)
+    page = request.GET.get('page')
+    paged_listings = paginator.get_page(page)
     context={
-        "profiles":profiles
+        "profiles":profiles,
+        'moreprofiles':paged_listings,
+
     }
     return render(request,"user/profiles.html",context)
 

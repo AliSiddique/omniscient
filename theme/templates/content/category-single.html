@@ -3,7 +3,7 @@
 {% block content %}
 <!-- Modal toggle -->
 <section class="text-gray-600 body-font">
-  <h1 class="text-center text-5xl font-extrabold mt-4 font-press-start">{{request.resolver_match.kwargs.slug}}</h1>
+  <h1 class="text-center text-5xl font-extrabold mt-4 font-press-start">{{request.resolver_match.kwargs.slug|title}}</h1>
 
     <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-wrap -m-4">
@@ -42,6 +42,39 @@
       </div>
     </div>
   </section>
+  <div class="flex justify-center items-center space-x-1 text-center">
+    {% if moreposts.has_other_pages %}
+    {% if moreposts.has_previous %}
+      <a href="?page={{moreposts.previous_page_number}}" class="flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">
+          Previous
+      </a>
+      {% else %}
+      <a  class=" disabled flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">
+        Previous
+    </a>
+      {%endif%}
+      {% for i in moreposts.paginator.page_range %}
+      {%if moreposts.number == i %}
+      <a href="#" class="bg-indigo-500 px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-blue-400 hover:text-white">
+        {{i}}
+    </a>
+    {%else %}
+    <a href="?page={{i}}" class="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-blue-400 hover:text-white">
+      {{i}}
+  </a>
+      {%endif%}
+      {%endfor%}
+      {% if moreposts.has_next %}
+      <a href="?page={{moreposts.next_page_number}}" class="flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">
+          Next
+      </a>
+      {% else %}
+      <a class=" disabled flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">
+        Next
+    </a>
+      {%endif%}
+    {% endif %}
+  </div>
 
 {% endblock content %}
 

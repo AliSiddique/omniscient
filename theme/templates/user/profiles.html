@@ -1,5 +1,6 @@
 
 {% extends "base.html" %}
+{% load static %}
 {% load tailwind_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
@@ -31,7 +32,11 @@
   <div class="bg-sky-500"></div>
   <div class="flex flex-col items-center justify-center p-4 mr-5 mt-16">
       <a href="#" class="block relative">
-          <img alt="profil" src="{{profile.image.url}}" class="mx-auto object-cover rounded-full h-16 w-16 "/>
+          {% if profile.image %}
+          <img class="mx-auto object-cover rounded-full h-20 w-20" src="{{profile.image.url}}" />
+          {% else %}
+          <img class="mx-auto object-cover rounded-full h-16 w-16" src="{% static 'images/default.jpeg' %}" />
+          {% endif %}
       </a>
       <p class="text-gray-800 dark:text-white text-xl font-medium mt-2">
           {{profile.name}}
@@ -41,7 +46,7 @@
               <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
               </path>
           </svg>
-          Uni
+          {{profile.course}}
       </p>
       <p class="text-gray-400 text-xs">
           {{profile.uni}}
@@ -58,6 +63,40 @@
 {% endfor %}
 </div>
 </section>
+<div class="flex justify-center items-center space-x-1 text-center mb-4">
+  {% if moreprofiles.has_other_pages %}
+  {% if moreprofiles.has_previous %}
+    <a href="?page={{moreprofiles.previous_page_number}}" class="flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">
+        Previous
+    </a>
+    {% else %}
+    <a  class=" disabled flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">
+      Previous
+  </a>
+    {%endif%}
+    {% for i in moreprofiles.paginator.page_range %}
+    {%if moreprofiles.number == i %}
+    <a href="#" class="bg-sky-00 px-4 py-2 text-gray-700  rounded-md hover:bg-blue-400 hover:text-white">
+      {{i}}
+  </a>
+  {%else %}
+  <a href="?page={{i}}" class="px-4 py-2  bg-sky-600 text-white rounded-md hover:bg-blue-400 hover:text-white">
+    {{i}}
+</a>
+    {%endif%}
+    {%endfor%}
+    {% if moreprofiles.has_next %}
+    <a href="?page={{moreprofiles.next_page_number}}" class="flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">
+        Next
+    </a>
+    {% else %}
+    <a class=" disabled flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">
+      Next
+  </a>
+    {%endif%}
+  {% endif %}
+</div>
+
 {% endblock content %}
 
 

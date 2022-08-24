@@ -12,13 +12,14 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     username = models.CharField(max_length=50)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,blank=True,null=True)
     email = models.EmailField()
     phone = models.CharField(max_length=15,blank=True,null=True)
-    image = models.ImageField(blank=True,null=True)
+    image = models.ImageField(blank=True,null=True,default='images/default.jpeg')
     bio = models.TextField(max_length=500,blank=True,null=True,default=None)
+    course = models.CharField(max_length=20,blank=True,null=True)
     uni = models.CharField(max_length=100,blank=True,null=True,default=None)
-    slug= models.SlugField(max_length=30, blank=True,  null=True,unique=True)
+    slug= models.SlugField(max_length=30,unique=True)
     twitter = models.CharField(max_length=40,blank=True,null=True)
     website = models.URLField(blank=True,null=True)
     joined = models.DateTimeField(auto_now_add=True)
@@ -45,8 +46,9 @@ def user_profile_create(instance,created,sender,**kwargs):
                 email=user.email,
                 slug=user.username
             )
-            free_pricing = Pricing.objects.get(name='Free')
-            subscription  = Subscription.objects.create(
+            if not user.is_superuser:
+                free_pricing = Pricing.objects.get(name='Free')
+                subscription  = Subscription.objects.create(
                 user=instance,
                 pricing=free_pricing)
             stripe_customer = stripe.Customer.create(

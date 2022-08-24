@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+environ.Env.read_env()
+env = environ.Env(
+    DEBUG=(bool,False)
+)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,16 +26,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-no^sv#%3%3kxb4i%7xy=2-o5_@cigtap2(acpt81klk^8g0i)4"
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # env = environ.Env(
 #     # set casting, default value
 #     DEBUG=(bool, True)
 # )
-STRIPE_PUBLIC_KEY='pk_test_51LC3cmLF9bIFNtJziBHAYVLRmm0r1UCWZMCBGPrzs9HEGsKpDz9MwfE7SZkyezOo0KgyJwtT6zawqUk4j95jX4EG006lgSHxh9'
-ALLOWED_HOSTS = ["*"]
-DEBUG =True
+STRIPE_PUBLIC_KEY=env('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY=env('STRIPE_SECRET_KEY')
+WEBHOOK_SECRET =env('WEBHOOK_SECRET')
+
+ALLOWED_HOSTS = ["localhost","127.0.0.1","https://theunireport.com","https://theunireport.herokuapp.com/"]
+
 
 # Application definition
 
@@ -41,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "storages",
     # omniscient apps
     "user",
     "payment",
@@ -63,8 +72,11 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
 
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 ROOT_URLCONF = "omniscient.urls"
 
@@ -90,22 +102,22 @@ WSGI_APPLICATION = "omniscient.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME":"thenews",
-#         "USER":'postgres',
-#         "PASSWORD":'16Doomsday',
-#         'HOST':'localhost',
-#         'PORT':'5432'
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env('DB_NAME'),
+        "USER": env('DB_USER'),
+        "PASSWORD": env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT')
+    }
+}
 
 
 # Password validation
@@ -157,5 +169,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://5a8c-81-111-17-130.ngrok.io'
+    'https://5a8c-81-111-17-130.ngrok.io',
+    "https://theunireport.com"
+   "https://theunireport.herokuapp.com/"
 ]
+STATIC_ROOT= os.path.join(BASE_DIR,'static/')
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID ='AKIAQLLKFPRG44LPNFEM'
+AWS_SECRET_ACCESS_KEY ='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'
+AWS_STORAGE_BUCKET_NAME= 'theunibucket'
+AWS_QUERYSTRING_AUTH = False

@@ -1,5 +1,6 @@
 
 {% extends "base.html" %}
+{% load static %}
 {% load tailwind_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
@@ -7,9 +8,12 @@
 <!-- Modal toggle -->
   <div>
   <section class="hero text-center flex justify-center container max-w-screen-lg mx-auto pb-10">
-
+    {% if request.user.profile.image %}
     <img class="mt-5 rounded-full h-60	 flex justify-center	text-center" src="{{profile.image.url}}" />
-
+    {% else %}
+    <img class="mt-5 rounded-full h-60	 flex justify-center	text-center" src="{% static 'images/default.jpeg' %}" />
+    {% endif %}
+    <a href="{{ profile.image.url }}" download="{{profile.image.url}}"> Download File</a>
   </section>
 
   <h1 class="text-center text-5xl  font-extrabold mt-4 font-press-start">{{profile.name|title}}</h1>
@@ -18,7 +22,7 @@
   <h1 class="text-center lg:text-xl lg:mx-96 sm:mx-40 sm:text-xs    mt-4 font-press-start">{{profile.bio}}</h1>
  <div class="text-center text-md gap-10 flex justify-center font-extrabold mt-4 font-press-start">
   {% if profile.twitter %}
-<a href="{{profile.twitter}}" class="twitter-follow-button" data-show-count="false">
+<a href="{{profile.twitter}}" target="_blank" class="twitter-follow-button" data-show-count="false">
   {% endif %}
   <i  class="text-3xl fa-brands fa-twitter"></i>
 </a>

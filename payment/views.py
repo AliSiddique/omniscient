@@ -11,7 +11,7 @@ from user.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
-stripe.api_key="sk_test_51LC3cmLF9bIFNtJzGGYAMuG72tTrBtWXQLNnBkhOIlRj5UT2s06e3gbKmGUdmopR3kiu8INiAagArvYavyOk5NMV00QOXvvP5d"
+stripe.api_key= settings.STRIPE_SECRET_KEY
 class Subscribe(TemplateView):
     template_name = "payment/subscribe.html"
  
@@ -67,7 +67,7 @@ class CreateCheckout(APIView):
 
 @csrf_exempt
 def webhook(request):
-    webhook_secret = 'whsec_rg16Sy5zsvha5TanUdXao0Y0gHuhEmuw'
+    webhook_secret = settings.WEBHOOK_SECRET
     payload = request.body
 
     # Retrieve the event by verifying the signature using the raw body and secret if webhook signing is configured.
