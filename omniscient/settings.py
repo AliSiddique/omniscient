@@ -170,8 +170,8 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 
 CSRF_TRUSTED_ORIGINS = [
     'https://5a8c-81-111-17-130.ngrok.io',
-    "https://theunireport.com"
-   "https://theunireport.herokuapp.com/"
+    "https://theunireport.com",
+   "https://theunireport.herokuapp.com/",
 ]
 STATIC_ROOT= os.path.join(BASE_DIR,'static/')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
