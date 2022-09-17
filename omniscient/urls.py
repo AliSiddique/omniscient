@@ -8,6 +8,8 @@ urlpatterns = [
     path('people/',include('user.urls')),
     path('payments/',include('payment.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('tinymce/', include('tinymce.urls')),
+
 
 
 ]

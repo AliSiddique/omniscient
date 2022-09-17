@@ -8,7 +8,7 @@
 <!-- Modal toggle -->
   <div>
   <section class="hero text-center flex justify-center container max-w-screen-lg mx-auto pb-10">
-    {% if request.user.profile.image %}
+    {% if profile.image %}
     <img class="mt-5 rounded-full h-60	 flex justify-center	text-center" src="{{profile.image.url}}" />
     {% else %}
     <img class="mt-5 rounded-full h-60	 flex justify-center	text-center" src="{% static 'images/default.jpeg' %}" />

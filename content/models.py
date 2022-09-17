@@ -1,7 +1,5 @@
-from email import message
-from unicodedata import name
 from django.db import models
-
+from ckeditor.fields import RichTextField 
 from user.models import Profile
 from payment.models import Pricing
 # Create your models here.
@@ -17,7 +15,7 @@ CHOICES =(
 class Article(models.Model):
     writer=models.ForeignKey(Profile,on_delete=models.CASCADE,blank=True,null=True)
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=4500)
+    description = RichTextField()
     slug=models.SlugField(max_length=30, blank=True,  null=True,unique=True)
     favourites = models.ManyToManyField(Profile,related_name='favourites',default=None,blank=True)
     views = models.BigIntegerField()

@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     "django_browser_reload",
     "crispy_forms",
     "crispy_tailwind",
-    "rest_framework"
+    "rest_framework",
+    "ckeditor"
 ]
 
 MIDDLEWARE = [
@@ -180,3 +181,5 @@ AWS_ACCESS_KEY_ID ='AKIAQLLKFPRG44LPNFEM'
 AWS_SECRET_ACCESS_KEY ='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'
 AWS_STORAGE_BUCKET_NAME= 'theunibucket'
 AWS_QUERYSTRING_AUTH = False
+STATICFILES_DIRS = []
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
