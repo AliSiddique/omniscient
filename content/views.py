@@ -10,14 +10,12 @@ from content.models import Article
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-
+import logging
 # Create your views here.
 def ArticleList(request):  
     economy = Article.objects.filter(category='Ec').filter(published=True)[:7]
     finance = Article.objects.filter(category='FI').filter(published=True)[:7]
     politics = Article.objects.filter(category='Po').filter(published=True)[:4]
- 
-
 
     context={
         "Economy":economy,

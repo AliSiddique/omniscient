@@ -12,7 +12,6 @@ urlpatterns = [
     path('profile/edit/',editAccount,name="editProfile"),
     path('profile/billing/<username>',UserSubscriptionView.as_view(),name="billing"),
     path('profile/billing/<username>/cancel',CancelSubscriptionView.as_view(),name="cancel"),
-
     path('logout/',logout_view,name="logout"),
     path('password-reset',PasswordResetView.as_view(template_name="user/passwordreset.html"),name="password-reset"),
     path('password-reset-done',PasswordResetDoneView.as_view(template_name="user/passwordresetdone.html"),name="password-reset-done"),
